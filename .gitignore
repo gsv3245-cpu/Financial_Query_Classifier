@@ -1,8 +1,11 @@
 .env
+.env.local
 __pycache__/
 *.py[cod]
 .pytest_cache/
 .venv/
-instance/*.db
+.vscode/
+instance/
+*.db
 *.db-journal
 .DS_Store
