@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block title %}History · FSIS{% endblock %}
+{% block content %}
+<div class="page-header mb-4">
+  <p class="eyebrow">Customer records</p>
+  <h1>Query History</h1>
+</div>
+
+<div class="card-panel panel-filter">
+  <form method="get" action="{{ url_for('history') }}" class="row g-3 align-items-end">
+    <div class="col-md-4">
+      <label for="categoryFilter" class="form-label small text-secondary">Category</label>
+      <select id="categoryFilter" name="category" class="form-select">
+        <option value="">All categories</option>
+        {% for category in categories %}
+        <option value="{{ category }}" {% if category == current_category %}selected{% endif %}>{{ category }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="col-md-6">
+      <label for="searchFilter" class="form-label small text-secondary">Search</label>
+      <input id="searchFilter" name="search" type="text" class="form-control" value="{{ current_search }}" placeholder="Search query text...">
+    </div>
+    <div class="col-md-2 d-flex gap-2">
+      <button type="submit" class="btn-primary-fill w-100">Apply</button>
+      <a href="{{ url_for('history') }}" class="btn-secondary w-100">Clear</a>
+    </div>
+  </form>
+</div>
+
+<div class="card-panel table-panel">
+  <div class="table-responsive">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Query</th>
+          <th>Category</th>
+          <th>Model</th>
+          <th>Feedback</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in rows %}
+        <tr>
+          <td>{{ row.created_at.strftime('%d %b %Y %H:%M') }}</td>
+          <td>{{ row.query_text }}</td>
+          <td><span class="badge-soft">{{ row.classification.category if row.classification else '—' }}</span></td>
+          <td>{{ row.classification.model_name if row.classification else '—' }}</td>
+          <td>{% if row.feedback %}{{ 'Correct' if row.feedback.is_correct else 'Incorrect' }}{% else %}No feedback{% endif %}</td>
+        </tr>
+        {% else %}
+        <tr><td colspan="5" class="empty-state">No queries yet.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

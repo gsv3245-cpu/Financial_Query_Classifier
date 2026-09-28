@@ -1,0 +1,61 @@
+id,query,expected_category,source,query_type
+1,How can I check the balance in my savings account?,Account Enquiry,https://www.hdfcbank.com/personal/pay/cards/credit-cards/mycards-pwa,Normal
+2,What documents are normally needed when opening a bank account?,Account Enquiry,https://investor.sebi.gov.in/securities-howtoinvest.html,Normal
+3,How can I download my bank account statement?,Account Enquiry,https://www.hdfcbank.com/personal/pay/cards/credit-cards/mycards-pwa,Normal
+4,Can I update the mobile number linked to my bank account?,Account Enquiry,https://www.hdfcbank.com/personal/pay/cards/credit-cards/mycards-pwa,Normal
+5,How do I complete KYC for my bank account?,Account Enquiry,https://investor.sebi.gov.in/securities-howtoinvest.html,Normal
+6,How can I get a replacement passbook for my account?,Account Enquiry,https://www.hdfcbank.com/personal/pay/cards/credit-cards/mycards-pwa,Curated
+7,What is the difference between a savings account and a current account?,Account Enquiry,https://www.hdfcbank.com/personal/pay/cards/credit-cards/mycards-pwa,Curated
+8,How do I close my bank account?,Account Enquiry,https://www.hdfcbank.com/personal/pay/cards/credit-cards/mycards-pwa,Curated
+9,Where can I see the details of my bank account?,Account Enquiry,https://www.icicibank.com/online-services/clicktopayloan,Curated
+10,Can I change my registered email address for my account?,Account Enquiry,https://www.hdfcbank.com/personal/pay/cards/credit-cards/mycards-pwa,Curated
+11,My account balance is not showing correctly; how can I check it?,Account Enquiry,https://www.hdfcbank.com/personal/pay/cards/credit-cards/mycards-pwa,Edge case
+12,"account statement kaha milega?",Account Enquiry,https://www.hdfcbank.com/personal/pay/cards/credit-cards/mycards-pwa,Informal
+13,How can I apply for a personal loan?,Loan Enquiry,https://www.icicibank.com/online-services/clicktopayloan,Normal
+14,What documents are usually required for a home loan?,Loan Enquiry,https://www.icicibank.com/online-services/clicktopayloan,Normal
+15,How can I check my loan EMI amount?,Loan Enquiry,https://www.icicibank.com/online-services/clicktopayloan,Normal
+16,Can I view my loan repayment schedule online?,Loan Enquiry,https://www.icicibank.com/online-services/clicktopayloan,Normal
+17,How can I find the outstanding amount on my loan?,Loan Enquiry,https://www.icicibank.com/online-services/clicktopayloan,Normal
+18,Can I make a part prepayment on my home loan?,Loan Enquiry,https://www.icicibank.com/Personal-Banking/onlineservice/online-services/FundsTransfer/neft.page,Normal
+19,What affects my eligibility for a personal loan?,Loan Enquiry,https://www.icicibank.com/online-services/clicktopayloan,Curated
+20,How can I download my loan documents?,Loan Enquiry,https://www.icicibank.com/online-services/clicktopayloan,Normal
+21,Can I change the repayment mode for my home loan?,Loan Enquiry,https://www.icicibank.com/online-services/clicktopayloan,Normal
+22,Where can I see my loan disbursement schedule?,Loan Enquiry,https://www.icicibank.com/online-services/clicktopayloan,Normal
+23,I need a loan quickly; what loan options can I enquire about?,Loan Enquiry,https://www.icicibank.com/online-services/clicktopayloan,Edge case
+24,loan ki EMI kaise check karu?,Loan Enquiry,https://www.icicibank.com/online-services/clicktopayloan,Informal
+25,How can I check the available credit limit on my credit card?,Credit-card Enquiry,https://www.hdfcbank.com/personal/pay/cards/credit-cards/mycards-pwa,Normal
+26,How do I pay my credit card bill?,Credit-card Enquiry,https://www.hdfcbank.com/personal/pay/cards/credit-cards/pay-credit-card-bill,Normal
+27,When is my credit card bill due?,Credit-card Enquiry,https://www.hdfcbank.com/personal/pay/cards/credit-cards/pay-credit-card-bill,Normal
+28,Can I increase my credit card limit?,Credit-card Enquiry,https://www.hdfcbank.com/personal/pay/cards/credit-cards/mycards-pwa,Normal
+29,How can I view my credit card statement?,Credit-card Enquiry,https://www.hdfcbank.com/personal/pay/cards/credit-cards/mycards-pwa,Normal
+30,How can I temporarily block my credit card?,Credit-card Enquiry,https://www.hdfcbank.com/personal/pay/cards/credit-cards/mycards-pwa,Normal
+31,How do I change my credit card PIN?,Credit-card Enquiry,https://www.hdfcbank.com/personal/pay/cards/credit-cards/mycards-pwa,Normal
+32,Can I convert a credit card transaction into an EMI?,Credit-card Enquiry,https://www.hdfcbank.com/personal/pay/cards/credit-cards/pay-credit-card-bill,Normal
+33,How can I see my unbilled credit card transactions?,Credit-card Enquiry,https://www.hdfcbank.com/personal/pay/cards/credit-cards/mycards-pwa,Normal
+34,What happens if I pay only the minimum amount due on my card?,Credit-card Enquiry,https://www.hdfcbank.com/personal/pay/cards/credit-cards/pay-credit-card-bill,Normal
+35,My card limit is low and I want to increase it; what can I do?,Credit-card Enquiry,https://www.hdfcbank.com/personal/pay/cards/credit-cards/mycards-pwa,Edge case
+36,"card limit badhana hai, kaise hoga?",Credit-card Enquiry,https://www.hdfcbank.com/personal/pay/cards/credit-cards/mycards-pwa,Informal
+37,Why was my UPI payment declined?,Transaction Enquiry,https://www.icicibank.com/personal-banking/loans/smart-loan/emi-on-upi-faq,Normal
+38,How can I check the status of a NEFT transfer?,Transaction Enquiry,https://www.icicibank.com/Personal-Banking/onlineservice/online-services/FundsTransfer/neft.page,Normal
+39,What should I do if a bank transfer is still pending?,Transaction Enquiry,https://www.icicibank.com/Personal-Banking/onlineservice/online-services/FundsTransfer/rtgs.page,Normal
+40,Why was my account debited but the merchant did not receive the payment?,Transaction Enquiry,https://www.hdfcbank.com/personal/pay/cards/credit-cards/pay-credit-card-bill,Normal
+41,How can I track an IMPS transaction?,Transaction Enquiry,https://www.icicibank.com/Personal-Banking/onlineservice/online-services/FundsTransfer/neft.page,Normal
+42,What is the process for making an RTGS transfer?,Transaction Enquiry,https://www.icicibank.com/Personal-Banking/onlineservice/online-services/FundsTransfer/rtgs.page,Normal
+43,Why did my online payment fail even though I had enough balance?,Transaction Enquiry,https://www.hdfcbank.com/personal/pay/cards/credit-cards/pay-credit-card-bill,Normal
+44,How long can a credit card payment take to settle?,Transaction Enquiry,https://www.hdfcbank.com/personal/pay/cards/credit-cards/pay-credit-card-bill,Normal
+45,Can I check details of my loan payment transaction?,Transaction Enquiry,https://www.icicibank.com/online-services/clicktopayloan,Normal
+46,My UPI transaction shows successful but the receiver has not received the money.,Transaction Enquiry,https://www.icicibank.com/personal-banking/loans/smart-loan/emi-on-upi-faq,Edge case
+47,"transction pending hai, kya karu?",Transaction Enquiry,https://www.icicibank.com/Personal-Banking/onlineservice/online-services/FundsTransfer/neft.page,Informal
+48,What is a mutual fund and how does it work?,Investment Enquiry,https://investor.sebi.gov.in/hindi/understanding_mf.html,Normal
+49,What is the difference between direct and regular mutual funds?,Investment Enquiry,https://investor.sebi.gov.in/regular_and_direct_mutual_funds.html,Normal
+50,How can I start investing in mutual funds?,Investment Enquiry,https://investor.sebi.gov.in/securities-howtoinvest.html,Normal
+51,What factors should I consider before investing?,Investment Enquiry,https://investor.sebi.gov.in/investment-thingsbeforeinv.html,Normal
+52,What is an ETF?,Investment Enquiry,https://investor.sebi.gov.in/securities-howtoinvest.html,Normal
+53,What are the risks of investing in shares?,Investment Enquiry,https://investor.sebi.gov.in/securities-howtoinvest.html,Normal
+54,How does diversification help an investment portfolio?,Investment Enquiry,https://investor.sebi.gov.in/investment-thingsbeforeinv.html,Normal
+55,What is a SIP in mutual funds?,Investment Enquiry,https://investor.sebi.gov.in/inv_aware_edu_videos.html,Normal
+56,How should I think about risk and return before investing?,Investment Enquiry,https://investor.sebi.gov.in/investment-thingsbeforeinv.html,Normal
+57,What is NAV in a mutual fund?,Investment Enquiry,https://investor.sebi.gov.in/hindi/understanding_mf.html,Normal
+58,Can I invest in bonds through the securities market?,Investment Enquiry,https://investor.sebi.gov.in/securities-howtoinvest.html,Normal
+59,I have savings and want to know about investment options; where should I start?,Investment Enquiry,https://investor.sebi.gov.in/why_one_should_invest.html,Edge case
+60,mutual fund me SIP kaise start karte hain?,Investment Enquiry,https://investor.sebi.gov.in/inv_aware_edu_videos.html,Informal

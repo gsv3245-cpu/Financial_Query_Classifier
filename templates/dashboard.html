@@ -1,0 +1,176 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard · FSIS{% endblock %}
+{% block content %}
+<div class="dashboard-header">
+  <div>
+    <p class="eyebrow">Financial Services Intelligent System</p>
+    <h1>Financial Query Classifier</h1>
+    <p class="subhead">Enter a customer query and classify its primary financial intent.</p>
+  </div>
+</div>
+
+<div class="dashboard-grid">
+  <div class="main-panel-stack">
+    <section class="card-panel query-panel">
+      <div class="panel-header">
+        <div>
+          <span class="section-title">Customer financial query</span>
+        </div>
+        <div class="model-box">
+          <span class="material-symbols-outlined">memory</span>
+          <span>{{ runtime_model_name }}</span>
+        </div>
+      </div>
+
+      <div class="preset-row">
+        <span class="preset-label">Presets:</span>
+        <button type="button" class="preset-btn" data-preset="Why was my UPI payment declined?">UPI decline query</button>
+        <button type="button" class="preset-btn" data-preset="Mera credit card ka limit enhance karna hai?">Credit limit increase</button>
+        <button type="button" class="preset-btn" data-preset="Submitted my Aadhaar and passport for periodic KYC re-verification last Friday.">KYC status</button>
+      </div>
+
+      <textarea id="query" class="query-box" maxlength="1000" placeholder="Example: Why was my UPI payment declined?"></textarea>
+
+      <div class="panel-footer">
+        <div class="meta-info">
+          <span id="counter">0 / 1000</span>
+          <span>•</span>
+          <span>Tokens: ~24</span>
+        </div>
+        <button class="btn-primary-fill" id="classifyBtn">Classify Query</button>
+      </div>
+    </section>
+
+    <section id="result" class="card-panel result-panel d-none">
+      <div class="panel-header compact">
+        <div>
+          <p class="eyebrow">Classification result</p>
+          <h2 id="category" class="result-title"></h2>
+        </div>
+      </div>
+      <p id="reason" class="result-reason"></p>
+      <div class="model-line">Model: <span id="model"></span></div>
+
+      <div id="feedbackPanel" class="feedback-panel d-none">
+        <p class="fw-semibold mb-2">Was this classification correct?</p>
+        <div class="d-flex flex-wrap gap-2 mb-3">
+          <button type="button" class="btn-feedback success feedback-btn" data-feedback="true">Yes, correct</button>
+          <button type="button" class="btn-feedback danger feedback-btn" data-feedback="false">No, incorrect</button>
+        </div>
+        <div class="form-group">
+          <label for="feedbackNote" class="form-label small text-secondary">Optional feedback note</label>
+          <textarea id="feedbackNote" rows="2" class="form-control" placeholder="Add any notes about the classification..."></textarea>
+        </div>
+        <div id="feedbackMessage" class="small mt-2 d-none"></div>
+      </div>
+    </section>
+
+    <div id="error" class="alert alert-danger mt-4 d-none"></div>
+  </div>
+
+  <aside class="sidebar-panel">
+    <section class="card-panel support-panel">
+      <div class="panel-header compact">
+        <span class="section-title">Supported intent classes</span>
+        <span class="mini-tag">5 active classes</span>
+      </div>
+      <div class="support-list">
+        <div class="support-item"><span class="dot muted"></span>Account Enquiry</div>
+        <div class="support-item"><span class="dot muted"></span>Loan & Credit Enquiry</div>
+        <div class="support-item"><span class="dot muted"></span>Credit Card Operations</div>
+        <div class="support-item active"><span class="dot primary"></span>Transaction & Payments</div>
+        <div class="support-item"><span class="dot muted"></span>Investment & Wealth</div>
+      </div>
+    </section>
+
+  </aside>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+const queryBox = document.getElementById('query');
+const counter = document.getElementById('counter');
+let currentQueryId = null;
+
+queryBox.addEventListener('input', () => {
+  counter.textContent = `${queryBox.value.length} / 1000`;
+});
+
+document.querySelectorAll('.preset-btn').forEach((button) => {
+  button.addEventListener('click', () => {
+    queryBox.value = button.dataset.preset;
+    counter.textContent = `${queryBox.value.length} / 1000`;
+  });
+});
+
+document.getElementById('classifyBtn').addEventListener('click', async () => {
+  const result = document.getElementById('result');
+  const error = document.getElementById('error');
+  const feedbackPanel = document.getElementById('feedbackPanel');
+  const feedbackMessage = document.getElementById('feedbackMessage');
+
+  result.classList.add('d-none');
+  error.classList.add('d-none');
+  feedbackPanel.classList.add('d-none');
+  feedbackMessage.classList.add('d-none');
+
+  const btn = document.getElementById('classifyBtn');
+  btn.disabled = true;
+  btn.textContent = 'Classifying...';
+
+  try {
+    const res = await fetch('/api/classify', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({ query: queryBox.value })
+    });
+    const data = await res.json();
+    if (!data.success) throw new Error(data.error);
+
+    currentQueryId = data.query_id;
+    document.getElementById('category').textContent = data.category;
+    document.getElementById('reason').textContent = data.reason;
+    document.getElementById('model').textContent = data.model;
+    result.classList.remove('d-none');
+    feedbackPanel.classList.remove('d-none');
+  } catch (err) {
+    error.textContent = err.message;
+    error.classList.remove('d-none');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Classify Query';
+  }
+});
+
+document.querySelectorAll('.feedback-btn').forEach((button) => {
+  button.addEventListener('click', async () => {
+    const feedbackMessage = document.getElementById('feedbackMessage');
+    if (!currentQueryId) return;
+
+    const payload = {
+      query_id: currentQueryId,
+      is_correct: button.dataset.feedback === 'true',
+      note: document.getElementById('feedbackNote').value.trim()
+    };
+
+    try {
+      const res = await fetch('/api/feedback', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(payload)
+      });
+      const data = await res.json();
+      if (!data.success) throw new Error(data.error || 'Failed to save feedback.');
+
+      feedbackMessage.textContent = 'Feedback saved successfully.';
+      feedbackMessage.className = 'small mt-2 text-success';
+      feedbackMessage.classList.remove('d-none');
+    } catch (err) {
+      feedbackMessage.textContent = err.message;
+      feedbackMessage.className = 'small mt-2 text-danger';
+      feedbackMessage.classList.remove('d-none');
+    }
+  });
+});
+</script>
+{% endblock %}

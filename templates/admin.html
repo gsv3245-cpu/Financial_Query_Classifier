@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block title %}Admin · FSIS{% endblock %}
+{% block content %}
+<div class="page-header mb-4">
+  <p class="eyebrow">Administrator panel</p>
+  <h1>All user queries</h1>
+</div>
+<div class="admin-stats">
+  <div class="card-panel stat-card">
+    <p>Total users</p>
+    <h3>{{ total_users }}</h3>
+  </div>
+  <div class="card-panel stat-card">
+    <p>Total queries</p>
+    <h3>{{ total_queries }}</h3>
+  </div>
+</div>
+<div class="card-panel table-panel admin-table">
+  <div class="table-responsive">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>User</th>
+          <th>Date</th>
+          <th>Query</th>
+          <th>Category</th>
+          <th>Model</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in rows %}
+        <tr>
+          <td>{{ row.user.name if row.user else 'Unknown' }}</td>
+          <td>{{ row.created_at.strftime('%d %b %Y %H:%M') }}</td>
+          <td>{{ row.query_text }}</td>
+          <td><span class="badge-soft">{{ row.classification.category if row.classification else '—' }}</span></td>
+          <td>{{ row.classification.model_name if row.classification else '—' }}</td>
+        </tr>
+        {% else %}
+        <tr><td colspan="5" class="empty-state">No query data available.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

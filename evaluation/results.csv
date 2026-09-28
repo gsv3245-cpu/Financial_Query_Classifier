@@ -1,0 +1,61 @@
+id,query,expected_category,predicted_category,correct,reason,query_type
+1,How can I check the balance in my savings account?,Account Enquiry,Account Enquiry,True,The query contains terms and intent associated with account enquiry.,Normal
+2,What documents are normally needed when opening a bank account?,Account Enquiry,Account Enquiry,True,The query contains terms and intent associated with account enquiry.,Normal
+3,How can I download my bank account statement?,Account Enquiry,Account Enquiry,True,The query contains terms and intent associated with account enquiry.,Normal
+4,Can I update the mobile number linked to my bank account?,Account Enquiry,Account Enquiry,True,The query contains terms and intent associated with account enquiry.,Normal
+5,How do I complete KYC for my bank account?,Account Enquiry,Account Enquiry,True,The query contains terms and intent associated with account enquiry.,Normal
+6,How can I get a replacement passbook for my account?,Account Enquiry,Account Enquiry,True,The query contains terms and intent associated with account enquiry.,Curated
+7,What is the difference between a savings account and a current account?,Account Enquiry,Account Enquiry,True,The query contains terms and intent associated with account enquiry.,Curated
+8,How do I close my bank account?,Account Enquiry,Account Enquiry,True,The query contains terms and intent associated with account enquiry.,Curated
+9,Where can I see the details of my bank account?,Account Enquiry,Account Enquiry,True,The query contains terms and intent associated with account enquiry.,Curated
+10,Can I change my registered email address for my account?,Account Enquiry,Account Enquiry,True,The query contains terms and intent associated with account enquiry.,Curated
+11,My account balance is not showing correctly; how can I check it?,Account Enquiry,Account Enquiry,True,The query contains terms and intent associated with account enquiry.,Edge case
+12,account statement kaha milega?,Account Enquiry,Account Enquiry,True,The query contains terms and intent associated with account enquiry.,Informal
+13,How can I apply for a personal loan?,Loan Enquiry,Loan Enquiry,True,The query contains terms and intent associated with loan enquiry.,Normal
+14,What documents are usually required for a home loan?,Loan Enquiry,Loan Enquiry,True,The query contains terms and intent associated with loan enquiry.,Normal
+15,How can I check my loan EMI amount?,Loan Enquiry,Loan Enquiry,True,The query contains terms and intent associated with loan enquiry.,Normal
+16,Can I view my loan repayment schedule online?,Loan Enquiry,Loan Enquiry,True,The query contains terms and intent associated with loan enquiry.,Normal
+17,How can I find the outstanding amount on my loan?,Loan Enquiry,Loan Enquiry,True,The query contains terms and intent associated with loan enquiry.,Normal
+18,Can I make a part prepayment on my home loan?,Loan Enquiry,Loan Enquiry,True,The query contains terms and intent associated with loan enquiry.,Normal
+19,What affects my eligibility for a personal loan?,Loan Enquiry,Loan Enquiry,True,The query contains terms and intent associated with loan enquiry.,Curated
+20,How can I download my loan documents?,Loan Enquiry,Loan Enquiry,True,The query contains terms and intent associated with loan enquiry.,Normal
+21,Can I change the repayment mode for my home loan?,Loan Enquiry,Loan Enquiry,True,The query contains terms and intent associated with loan enquiry.,Normal
+22,Where can I see my loan disbursement schedule?,Loan Enquiry,Loan Enquiry,True,The query contains terms and intent associated with loan enquiry.,Normal
+23,I need a loan quickly; what loan options can I enquire about?,Loan Enquiry,Loan Enquiry,True,The query contains terms and intent associated with loan enquiry.,Edge case
+24,loan ki EMI kaise check karu?,Loan Enquiry,Loan Enquiry,True,The query contains terms and intent associated with loan enquiry.,Informal
+25,How can I check the available credit limit on my credit card?,Credit-card Enquiry,Credit-card Enquiry,True,The query contains terms and intent associated with credit-card enquiry.,Normal
+26,How do I pay my credit card bill?,Credit-card Enquiry,Credit-card Enquiry,True,The query contains terms and intent associated with credit-card enquiry.,Normal
+27,When is my credit card bill due?,Credit-card Enquiry,Credit-card Enquiry,True,The query contains terms and intent associated with credit-card enquiry.,Normal
+28,Can I increase my credit card limit?,Credit-card Enquiry,Credit-card Enquiry,True,The query contains terms and intent associated with credit-card enquiry.,Normal
+29,How can I view my credit card statement?,Credit-card Enquiry,Credit-card Enquiry,True,The query contains terms and intent associated with credit-card enquiry.,Normal
+30,How can I temporarily block my credit card?,Credit-card Enquiry,Credit-card Enquiry,True,The query contains terms and intent associated with credit-card enquiry.,Normal
+31,How do I change my credit card PIN?,Credit-card Enquiry,Credit-card Enquiry,True,The query contains terms and intent associated with credit-card enquiry.,Normal
+32,Can I convert a credit card transaction into an EMI?,Credit-card Enquiry,Credit-card Enquiry,True,The query contains terms and intent associated with credit-card enquiry.,Normal
+33,How can I see my unbilled credit card transactions?,Credit-card Enquiry,Credit-card Enquiry,True,The query contains terms and intent associated with credit-card enquiry.,Normal
+34,What happens if I pay only the minimum amount due on my card?,Credit-card Enquiry,Account Enquiry,False,"The query does not clearly match another category, so the offline demo fallback uses Account Enquiry.",Normal
+35,My card limit is low and I want to increase it; what can I do?,Credit-card Enquiry,Credit-card Enquiry,True,The query contains terms and intent associated with credit-card enquiry.,Edge case
+36,"card limit badhana hai, kaise hoga?",Credit-card Enquiry,Credit-card Enquiry,True,The query contains terms and intent associated with credit-card enquiry.,Informal
+37,Why was my UPI payment declined?,Transaction Enquiry,Transaction Enquiry,True,The query contains terms and intent associated with transaction enquiry.,Normal
+38,How can I check the status of a NEFT transfer?,Transaction Enquiry,Transaction Enquiry,True,The query contains terms and intent associated with transaction enquiry.,Normal
+39,What should I do if a bank transfer is still pending?,Transaction Enquiry,Transaction Enquiry,True,The query contains terms and intent associated with transaction enquiry.,Normal
+40,Why was my account debited but the merchant did not receive the payment?,Transaction Enquiry,Transaction Enquiry,True,The query contains terms and intent associated with transaction enquiry.,Normal
+41,How can I track an IMPS transaction?,Transaction Enquiry,Transaction Enquiry,True,The query contains terms and intent associated with transaction enquiry.,Normal
+42,What is the process for making an RTGS transfer?,Transaction Enquiry,Transaction Enquiry,True,The query contains terms and intent associated with transaction enquiry.,Normal
+43,Why did my online payment fail even though I had enough balance?,Transaction Enquiry,Account Enquiry,False,The query contains terms and intent associated with account enquiry.,Normal
+44,How long can a credit card payment take to settle?,Transaction Enquiry,Credit-card Enquiry,False,The query contains terms and intent associated with credit-card enquiry.,Normal
+45,Can I check details of my loan payment transaction?,Transaction Enquiry,Transaction Enquiry,True,The query contains terms and intent associated with transaction enquiry.,Normal
+46,My UPI transaction shows successful but the receiver has not received the money.,Transaction Enquiry,Transaction Enquiry,True,The query contains terms and intent associated with transaction enquiry.,Edge case
+47,"transction pending hai, kya karu?",Transaction Enquiry,Account Enquiry,False,"The query does not clearly match another category, so the offline demo fallback uses Account Enquiry.",Informal
+48,What is a mutual fund and how does it work?,Investment Enquiry,Investment Enquiry,True,The query contains terms and intent associated with investment enquiry.,Normal
+49,What is the difference between direct and regular mutual funds?,Investment Enquiry,Investment Enquiry,True,The query contains terms and intent associated with investment enquiry.,Normal
+50,How can I start investing in mutual funds?,Investment Enquiry,Investment Enquiry,True,The query contains terms and intent associated with investment enquiry.,Normal
+51,What factors should I consider before investing?,Investment Enquiry,Investment Enquiry,True,The query contains terms and intent associated with investment enquiry.,Normal
+52,What is an ETF?,Investment Enquiry,Investment Enquiry,True,The query contains terms and intent associated with investment enquiry.,Normal
+53,What are the risks of investing in shares?,Investment Enquiry,Investment Enquiry,True,The query contains terms and intent associated with investment enquiry.,Normal
+54,How does diversification help an investment portfolio?,Investment Enquiry,Investment Enquiry,True,The query contains terms and intent associated with investment enquiry.,Normal
+55,What is a SIP in mutual funds?,Investment Enquiry,Investment Enquiry,True,The query contains terms and intent associated with investment enquiry.,Normal
+56,How should I think about risk and return before investing?,Investment Enquiry,Investment Enquiry,True,The query contains terms and intent associated with investment enquiry.,Normal
+57,What is NAV in a mutual fund?,Investment Enquiry,Investment Enquiry,True,The query contains terms and intent associated with investment enquiry.,Normal
+58,Can I invest in bonds through the securities market?,Investment Enquiry,Investment Enquiry,True,The query contains terms and intent associated with investment enquiry.,Normal
+59,I have savings and want to know about investment options; where should I start?,Investment Enquiry,Investment Enquiry,True,The query contains terms and intent associated with investment enquiry.,Edge case
+60,mutual fund me SIP kaise start karte hain?,Investment Enquiry,Investment Enquiry,True,The query contains terms and intent associated with investment enquiry.,Informal

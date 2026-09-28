@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block title %}Sign Up · FSIS{% endblock %}
+{% block content %}
+<div class="auth-shell single-column-auth">
+  <div class="auth-card card-panel mx-auto">
+    <div class="card-body p-4 p-md-5">
+      <div class="auth-heading">
+        <p class="eyebrow">New account</p>
+        <h2>Create account</h2>
+      </div>
+      <div id="alert" class="alert d-none"></div>
+      <form id="signupForm">
+        <div class="mb-3"><label class="form-label">Full name</label><input class="form-control" type="text" id="name" maxlength="120" required></div>
+        <div class="mb-3"><label class="form-label">Email</label><input class="form-control" type="email" id="email" required></div>
+        <div class="mb-3"><label class="form-label">Password</label><input class="form-control" type="password" id="password" minlength="8" required></div>
+        <button class="btn-primary-fill w-100" type="submit">Create account</button>
+      </form>
+      <p class="small text-center mt-4 mb-0 auth-switch">Already registered? <a href="{{ url_for('login') }}">Sign in</a></p>
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+document.getElementById('signupForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const alertBox = document.getElementById('alert');
+  const nameInput = document.getElementById('name');
+  const emailInput = document.getElementById('email');
+  const passwordInput = document.getElementById('password');
+
+  const res = await fetch('/api/signup', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      name: nameInput.value,
+      email: emailInput.value,
+      password: passwordInput.value,
+    }),
+  });
+
+  const data = await res.json();
+  if (data.success) window.location.href = '/dashboard';
+  else { alertBox.className='alert alert-danger'; alertBox.textContent=data.error; }
+});
+</script>
+{% endblock %}
