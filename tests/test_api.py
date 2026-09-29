@@ -206,3 +206,24 @@ def test_mock_classifier_prioritizes_specific_intent_keywords():
     assert classify_financial_query("What is a mutual fund SIP? ")["category"] == "Investment Enquiry"
     assert classify_financial_query("How can I download my bank account statement?")["category"] == "Account Enquiry"
     assert classify_financial_query("How long can a credit card payment take to settle?")["category"] == "Transaction Enquiry"
+
+
+def test_hindi_query_is_classified_with_mock_mode():
+    from llm_service import classify_financial_query
+
+    result = classify_financial_query("mera credit score kaisa badega")
+    assert result["category"] in {
+        "Credit-card Enquiry",
+        "Account Enquiry",
+        "Transaction Enquiry",
+    }
+    assert result["reason"]
+
+
+def test_parse_classification_payload_accepts_wrapped_json_text():
+    from llm_service import _parse_classification_payload
+
+    payload = 'Sure, here is the result: {"category": "Credit-card Enquiry", "reason": "User is asking about credit score improvement."}'
+    result = _parse_classification_payload(payload)
+    assert result["category"] == "Credit-card Enquiry"
+    assert "credit score" in result["reason"].lower()

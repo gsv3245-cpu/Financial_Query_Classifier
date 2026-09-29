@@ -59,3 +59,143 @@ id,query,expected_category,source,query_type
 58,Can I invest in bonds through the securities market?,Investment Enquiry,https://investor.sebi.gov.in/securities-howtoinvest.html,Normal
 59,I have savings and want to know about investment options; where should I start?,Investment Enquiry,https://investor.sebi.gov.in/why_one_should_invest.html,Edge case
 60,mutual fund me SIP kaise start karte hain?,Investment Enquiry,https://investor.sebi.gov.in/inv_aware_edu_videos.html,Informal
+61,How do I open a savings account online?,Account Enquiry,https://www.hdfc.bank.in/savings-account,Normal
+62,Can I convert my individual account into a joint account?,Account Enquiry,https://www.hdfc.bank.in/savings-account,Curated
+63,How can I add a nominee to my bank account?,Account Enquiry,https://www.hdfc.bank.in/savings-account,Normal
+64,What is the minimum balance requirement for my savings account?,Account Enquiry,https://www.hdfc.bank.in/savings-account,Normal
+65,Why was a service charge deducted from my account?,Account Enquiry,https://www.hdfc.bank.in/savings-account,Edge case
+66,How do I reactivate an inactive bank account?,Account Enquiry,https://www.hdfc.bank.in/savings-account,Normal
+67,Can I update the address on my bank account using online banking?,Account Enquiry,https://www.hdfc.bank.in/savings-account,Normal
+68,Where can I find the IFSC code for my branch?,Account Enquiry,https://www.hdfc.bank.in/savings-account,Normal
+69,How can I request a cheque book for my account?,Account Enquiry,https://www.hdfc.bank.in/savings-account,Normal
+70,Can I stop payment on a cheque I have already issued?,Account Enquiry,https://www.hdfc.bank.in/savings-account,Normal
+71,How do I enable internet banking for my account?,Account Enquiry,https://www.hdfc.bank.in/savings-account,Normal
+72,My debit card has expired; how can I get a new one?,Account Enquiry,https://www.hdfc.bank.in/savings-account,Normal
+73,Can I change the name registered on my bank account?,Account Enquiry,https://www.hdfc.bank.in/savings-account,Curated
+74,How do I link my PAN with my bank account?,Account Enquiry,https://www.hdfc.bank.in/savings-account,Normal
+75,Can I get a bank account confirmation letter for my employer?,Account Enquiry,https://www.hdfc.bank.in/savings-account,Curated
+76,How can I find the account number linked to my debit card?,Account Enquiry,https://www.hdfc.bank.in/savings-account,Normal
+77,My account has become dormant and I need to use it again; what should I do?,Account Enquiry,https://www.hdfc.bank.in/savings-account,Edge case
+78,How can I change my home branch to another city?,Account Enquiry,https://www.hdfc.bank.in/savings-account,Normal
+79,Are there transaction limits on my savings account?,Account Enquiry,https://www.hdfc.bank.in/savings-account,Normal
+80,Can I get a statement for a specific date range?,Account Enquiry,https://www.hdfc.bank.in/savings-account,Normal
+81,My account is frozen; how do I find out why?,Account Enquiry,https://www.rbi.org.in/commonperson/english/Scripts/FAQs.aspx?Id=3407,Edge case
+82,How can I register a complaint about poor service on my bank account?,Account Enquiry,https://www.rbi.org.in/commonperson/english/Scripts/FAQs.aspx?Id=3407,Curated
+83,Can a minor have a bank account and how is it operated?,Account Enquiry,https://www.hdfc.bank.in/savings-account,Curated
+84,Where do I update the mobile number used for account alerts?,Account Enquiry,https://www.hdfc.bank.in/savings-account,Normal
+85,My passbook is full; how can I get another one?,Account Enquiry,https://www.hdfc.bank.in/savings-account,Normal
+86,account me nominee add karna hai kaise karu?,Account Enquiry,https://www.hdfc.bank.in/savings-account,Informal
+87,bank account ka minimum balance kitna hona chahiye?,Account Enquiry,https://www.hdfc.bank.in/savings-account,Informal
+88,I can't access my account after changing my phone number. How can I update it?,Account Enquiry,https://www.hdfc.bank.in/savings-account,Informal
+89,How can I check whether I qualify for a home loan?,Loan Enquiry,https://www.icicibank.com/online-services/clicktopayloan,Normal
+90,What is the difference between a fixed and floating home loan rate?,Loan Enquiry,https://www.icicibank.com/online-services/clicktopayloan,Curated
+91,Can I get a loan against my fixed deposit?,Loan Enquiry,https://www.icicibank.com/online-services/clicktopayloan,Normal
+92,How can I obtain a loan foreclosure statement?,Loan Enquiry,https://www.icicibank.com/online-services/clicktopayloan,Normal
+93,What fees may be charged when I apply for a home loan?,Loan Enquiry,https://www.icicibank.com/online-services/clicktopayloan,Normal
+94,How do I request a change to my loan EMI due date?,Loan Enquiry,https://www.icicibank.com/online-services/clicktopayloan,Normal
+95,Can I make an extra payment toward my personal loan principal?,Loan Enquiry,https://www.icicibank.com/online-services/clicktopayloan,Normal
+96,My loan application is pending; where can I check its status?,Loan Enquiry,https://www.icicibank.com/online-services/clicktopayloan,Edge case
+97,How can I get a copy of my loan interest certificate for tax filing?,Loan Enquiry,https://www.icicibank.com/online-services/clicktopayloan,Normal
+98,What happens to my EMI if the interest rate on my floating-rate loan changes?,Loan Enquiry,https://www.icicibank.com/online-services/clicktopayloan,Curated
+99,Can I transfer my home loan from another lender?,Loan Enquiry,https://www.icicibank.com/online-services/clicktopayloan,Normal
+100,How do I update my bank account for automatic loan EMI payments?,Loan Enquiry,https://www.icicibank.com/online-services/clicktopayloan,Normal
+101,What should I do if my loan EMI was debited twice?,Loan Enquiry,https://www.icicibank.com/online-services/clicktopayloan,Edge case
+102,How can I request a restructuring discussion for my loan repayments?,Loan Enquiry,https://www.icicibank.com/online-services/clicktopayloan,Curated
+103,Where can I download the repayment certificate for my education loan?,Loan Enquiry,https://www.icicibank.com/online-services/clicktopayloan,Normal
+104,Does making a part payment reduce my loan tenure or my EMI?,Loan Enquiry,https://www.icicibank.com/online-services/clicktopayloan,Curated
+105,How can I check whether my loan account has been closed after repayment?,Loan Enquiry,https://www.icicibank.com/online-services/clicktopayloan,Normal
+106,Can I get a top-up on my existing home loan?,Loan Enquiry,https://www.icicibank.com/online-services/clicktopayloan,Normal
+107,What documents are needed to apply for an education loan?,Loan Enquiry,https://www.icicibank.com/online-services/clicktopayloan,Normal
+108,My EMI was not collected on the due date; how should I repay it?,Loan Enquiry,https://www.icicibank.com/online-services/clicktopayloan,Edge case
+109,How can I change the tenure of my existing personal loan?,Loan Enquiry,https://www.icicibank.com/online-services/clicktopayloan,Normal
+110,Can I get a no-dues certificate after paying off my loan?,Loan Enquiry,https://www.icicibank.com/online-services/clicktopayloan,Normal
+111,Why is the loan balance still showing after I made a payment?,Loan Enquiry,https://www.icicibank.com/online-services/clicktopayloan,Edge case
+112,How do I find out the interest rate applied to my vehicle loan?,Loan Enquiry,https://www.icicibank.com/online-services/clicktopayloan,Normal
+113,Can I apply for a personal loan if I am self-employed?,Loan Enquiry,https://www.icicibank.com/online-services/clicktopayloan,Curated
+114,Is there a charge for paying off my loan early?,Loan Enquiry,https://www.icicibank.com/online-services/clicktopayloan,Normal
+115,personal loan ka application status kaise check karu?,Loan Enquiry,https://www.icicibank.com/online-services/clicktopayloan,Informal
+116,"meri loan EMI double debit ho gayi, ab kya karna hai?",Loan Enquiry,https://www.icicibank.com/online-services/clicktopayloan,Informal
+117,How do I activate a new credit card before using it?,Credit-card Enquiry,https://www.hdfcbank.com/personal/pay/cards/credit-cards/mycards-pwa,Normal
+118,Can I get a replacement credit card if mine is damaged?,Credit-card Enquiry,https://www.hdfcbank.com/personal/pay/cards/credit-cards/mycards-pwa,Normal
+119,How do I report an unauthorized charge on my credit card?,Credit-card Enquiry,https://www.hdfcbank.com/personal/pay/cards/credit-cards/mycards-pwa,Edge case
+120,Why was interest charged even though I paid my credit card bill?,Credit-card Enquiry,https://www.hdfcbank.com/personal/pay/cards/credit-cards/pay-credit-card-bill,Curated
+121,How can I redeem the reward points on my credit card?,Credit-card Enquiry,https://www.hdfcbank.com/personal/pay/cards/credit-cards/mycards-pwa,Normal
+122,Can I add a family member as an add-on cardholder?,Credit-card Enquiry,https://www.hdfcbank.com/personal/pay/cards/credit-cards/mycards-pwa,Normal
+123,How do I enable international usage on my credit card?,Credit-card Enquiry,https://www.hdfcbank.com/personal/pay/cards/credit-cards/mycards-pwa,Normal
+124,What is the foreign currency fee on my credit card purchase?,Credit-card Enquiry,https://www.hdfcbank.com/personal/pay/cards/credit-cards/pay-credit-card-bill,Curated
+125,My credit card payment is missing from the latest statement; what should I check?,Credit-card Enquiry,https://www.hdfcbank.com/personal/pay/cards/credit-cards/pay-credit-card-bill,Edge case
+126,How can I convert my credit card purchase into monthly instalments?,Credit-card Enquiry,https://www.hdfcbank.com/personal/pay/cards/credit-cards/pay-credit-card-bill,Normal
+127,Can I change the billing cycle for my credit card?,Credit-card Enquiry,https://www.hdfcbank.com/personal/pay/cards/credit-cards/mycards-pwa,Normal
+128,How do I download the annual fee details for my card?,Credit-card Enquiry,https://www.hdfcbank.com/personal/pay/cards/credit-cards/mycards-pwa,Normal
+129,Why was an annual fee charged on my credit card?,Credit-card Enquiry,https://www.hdfcbank.com/personal/pay/cards/credit-cards/pay-credit-card-bill,Curated
+130,Can I temporarily disable online purchases on my credit card?,Credit-card Enquiry,https://www.hdfcbank.com/personal/pay/cards/credit-cards/mycards-pwa,Normal
+131,How can I get a duplicate credit card statement for last year?,Credit-card Enquiry,https://www.hdfcbank.com/personal/pay/cards/credit-cards/mycards-pwa,Normal
+132,What should I do if my credit card is lost while travelling?,Credit-card Enquiry,https://www.hdfcbank.com/personal/pay/cards/credit-cards/mycards-pwa,Edge case
+133,Why is my available card limit lower than my total credit limit?,Credit-card Enquiry,https://www.hdfcbank.com/personal/pay/cards/credit-cards/mycards-pwa,Normal
+134,How do I close a credit card account that I no longer use?,Credit-card Enquiry,https://www.hdfcbank.com/personal/pay/cards/credit-cards/mycards-pwa,Normal
+135,Can I request a waiver of the late payment fee on my card?,Credit-card Enquiry,https://www.hdfcbank.com/personal/pay/cards/credit-cards/pay-credit-card-bill,Curated
+136,My card was declined at a shop but I have enough credit available; why?,Credit-card Enquiry,https://www.hdfcbank.com/personal/pay/cards/credit-cards/mycards-pwa,Edge case
+137,How do I change the PIN for my supplementary credit card?,Credit-card Enquiry,https://www.hdfcbank.com/personal/pay/cards/credit-cards/mycards-pwa,Normal
+138,Can I get a credit card replacement with a different design or variant?,Credit-card Enquiry,https://www.hdfcbank.com/personal/pay/cards/credit-cards/mycards-pwa,Curated
+139,Where can I see the cashback earned on my credit card?,Credit-card Enquiry,https://www.hdfcbank.com/personal/pay/cards/credit-cards/mycards-pwa,Normal
+140,How can I dispute a cash withdrawal that I did not make on my card?,Credit-card Enquiry,https://www.hdfcbank.com/personal/pay/cards/credit-cards/mycards-pwa,Edge case
+141,Does paying my card bill early restore the available limit immediately?,Credit-card Enquiry,https://www.hdfcbank.com/personal/pay/cards/credit-cards/pay-credit-card-bill,Normal
+142,Can I get a credit card against a fixed deposit?,Credit-card Enquiry,https://www.hdfcbank.com/personal/pay/cards/credit-cards/mycards-pwa,Curated
+143,How do I check whether my card has airport lounge access?,Credit-card Enquiry,https://www.hdfcbank.com/personal/pay/cards/credit-cards/mycards-pwa,Normal
+144,credit card ka bill due date se pehle pay kar sakta hu?,Credit-card Enquiry,https://www.hdfcbank.com/personal/pay/cards/credit-cards/pay-credit-card-bill,Informal
+145,My UPI transfer failed but the amount was deducted. When should it be reversed?,Transaction Enquiry,https://www.upihelp.npci.org.in/,Edge case
+146,How can I raise a complaint about a UPI transaction in the app?,Transaction Enquiry,https://www.upihelp.npci.org.in/,Normal
+147,What details do I need to trace a NEFT transfer?,Transaction Enquiry,https://www.icici.bank.in/Personal-Banking/onlineservice/online-services/FundsTransfer/neft.page,Normal
+148,Can I cancel a NEFT payment after submitting it?,Transaction Enquiry,https://www.icici.bank.in/Personal-Banking/onlineservice/online-services/FundsTransfer/neft.page,Curated
+149,How do I confirm that an RTGS transfer reached the beneficiary bank?,Transaction Enquiry,https://www.icicibank.com/Personal-Banking/onlineservice/online-services/FundsTransfer/rtgs.page,Normal
+150,I sent money to the wrong account number; can the transfer be recalled?,Transaction Enquiry,https://www.icici.bank.in/Personal-Banking/onlineservice/online-services/FundsTransfer/neft.page,Edge case
+151,Why does my UPI payment say pending after the merchant timed out?,Transaction Enquiry,https://www.upihelp.npci.org.in/,Edge case
+152,Where can I find the UTR number for a bank transfer?,Transaction Enquiry,https://www.icici.bank.in/Personal-Banking/onlineservice/online-services/FundsTransfer/neft.page,Normal
+153,How can I check if a beneficiary has been added successfully for a transfer?,Transaction Enquiry,https://www.icici.bank.in/Personal-Banking/onlineservice/online-services/FundsTransfer/neft.page,Normal
+154,My IMPS transfer is pending and the receiver has not received funds. What now?,Transaction Enquiry,https://www.icici.bank.in/Personal-Banking/onlineservice/online-services/FundsTransfer/neft.page,Edge case
+155,Can I schedule a bank transfer for a later date?,Transaction Enquiry,https://www.icici.bank.in/Personal-Banking/onlineservice/online-services/FundsTransfer/neft.page,Curated
+156,How do I find the status of a bill payment made through net banking?,Transaction Enquiry,https://www.hdfcbank.com/personal/pay/cards/credit-cards/pay-credit-card-bill,Normal
+157,Why was my UPI collect request declined by my bank?,Transaction Enquiry,https://www.upihelp.npci.org.in/,Normal
+158,The receiver entered the wrong UPI ID and my payment went through. Can it be reversed?,Transaction Enquiry,https://www.upihelp.npci.org.in/,Edge case
+159,How long does a NEFT transfer usually take to reach another bank?,Transaction Enquiry,https://www.icici.bank.in/Personal-Banking/onlineservice/online-services/FundsTransfer/neft.page,Normal
+160,My online purchase was charged twice; how do I dispute the duplicate payment?,Transaction Enquiry,https://www.rbi.org.in/commonperson/english/Scripts/FAQs.aspx?Id=3407,Edge case
+161,What should I do if an ATM did not dispense cash but my account was debited?,Transaction Enquiry,https://www.rbi.org.in/commonperson/english/Scripts/FAQs.aspx?Id=3407,Edge case
+162,Can I track a refund for a cancelled online order?,Transaction Enquiry,https://www.hdfcbank.com/personal/pay/cards/credit-cards/pay-credit-card-bill,Normal
+163,How can I check whether my debit card payment was reversed?,Transaction Enquiry,https://www.rbi.org.in/commonperson/english/Scripts/FAQs.aspx?Id=3407,Normal
+164,Why did my bank transfer return to my account after being processed?,Transaction Enquiry,https://www.icici.bank.in/Personal-Banking/onlineservice/online-services/FundsTransfer/neft.page,Normal
+165,How do I report a payment that I do not recognize in my account?,Transaction Enquiry,https://www.rbi.org.in/commonperson/english/Scripts/FAQs.aspx?Id=3407,Edge case
+166,What is the difference between NEFT and RTGS for sending money?,Transaction Enquiry,https://www.icici.bank.in/Personal-Banking/onlineservice/online-services/FundsTransfer/neft.page,Curated
+167,Can I make an international transfer from my bank account?,Transaction Enquiry,https://www.icici.bank.in/Personal-Banking/onlineservice/online-services/FundsTransfer/neft.page,Normal
+168,My UPI app shows success but the shop says the payment was not received.,Transaction Enquiry,https://www.upihelp.npci.org.in/,Edge case
+169,How can I check if a standing instruction payment went through?,Transaction Enquiry,https://www.rbi.org.in/commonperson/english/Scripts/FAQs.aspx?Id=3407,Normal
+170,"upi se paise kat gaye par saamne wale ko nahi mile, kya karu?",Transaction Enquiry,https://www.upihelp.npci.org.in/,Informal
+171,NEFT transfer ka UTR number kahan milega?,Transaction Enquiry,https://www.icici.bank.in/Personal-Banking/onlineservice/online-services/FundsTransfer/neft.page,Informal
+172,How can I check a disputed transaction complaint after I have submitted it?,Transaction Enquiry,https://www.rbi.org.in/commonperson/english/Scripts/FAQs.aspx?Id=3407,Curated
+173,What does the expense ratio mean for a mutual fund investor?,Investment Enquiry,https://investor.sebi.gov.in/regular_and_direct_mutual_funds.html,Normal
+174,How do I compare the risk levels shown by mutual fund risk-o-meters?,Investment Enquiry,https://investor.sebi.gov.in/riskometer.html,Curated
+175,What is the difference between an index fund and an ETF?,Investment Enquiry,https://investor.sebi.gov.in/exchange_traded_fund.html,Normal
+176,How can I check the portfolio holdings of a mutual fund scheme?,Investment Enquiry,https://investor.sebi.gov.in/hindi/understanding_mf.html,Normal
+177,What does a bond credit rating tell me and what does it not guarantee?,Investment Enquiry,https://investor.sebi.gov.in/understanding_bonds.html,Curated
+178,How do changing interest rates affect the market value of bonds?,Investment Enquiry,https://investor.sebi.gov.in/understanding_bonds.html,Normal
+179,What is liquidity risk when investing in shares or bonds?,Investment Enquiry,https://investor.sebi.gov.in/investment-thingsbeforeinv.html,Normal
+180,How can I check whether an investment adviser is registered with SEBI?,Investment Enquiry,https://investor.sebi.gov.in/investment_advisor.html,Normal
+181,What steps can I take if a broker has not resolved my investment complaint?,Investment Enquiry,https://investor.sebi.gov.in/securities-resolvedispute.html,Curated
+182,How do I submit and track an investor complaint through SCORES?,Investment Enquiry,https://investor.sebi.gov.in/securities-resolvedispute.html,Normal
+183,What is an IPO and how can a retail investor apply for one?,Investment Enquiry,https://investor.sebi.gov.in/securities-howtoinvest.html,Normal
+184,What is the lock-in period for an equity-linked savings scheme?,Investment Enquiry,https://investor.sebi.gov.in/elss.html,Normal
+185,How does an exit load affect the amount I receive when redeeming a fund?,Investment Enquiry,https://investor.sebi.gov.in/exit_load.html,Normal
+186,Can I stop or pause my monthly mutual fund SIP at any time?,Investment Enquiry,https://investor.sebi.gov.in/hindi/understanding_mf.html,Normal
+187,What happens to a bond investment if the issuer cannot repay it?,Investment Enquiry,https://investor.sebi.gov.in/understanding_bonds.html,Edge case
+188,How can I spread investments across different asset classes?,Investment Enquiry,https://investor.sebi.gov.in/investment-thingsbeforeinv.html,Normal
+189,What is the difference between a primary market and a secondary market?,Investment Enquiry,https://investor.sebi.gov.in/securities-howtoinvest.html,Curated
+190,Can an ETF be bought or sold during normal stock market trading hours?,Investment Enquiry,https://investor.sebi.gov.in/exchange_traded_fund.html,Normal
+191,How do I check whether a stock broker is registered with the regulator?,Investment Enquiry,https://investor.sebi.gov.in/Brokers.html,Normal
+192,What should I review before investing in a sector-specific mutual fund?,Investment Enquiry,https://investor.sebi.gov.in/thematic_sectoral_mutual_funds.html,Curated
+193,How can I tell whether an investment offer promising guaranteed high returns is a scam?,Investment Enquiry,https://investor.sebi.gov.in/beware-of-investment.html,Edge case
+194,What is a demat account used for when investing in securities?,Investment Enquiry,https://investor.sebi.gov.in/depositories.html,Normal
+195,How do I update my KYC details for a mutual fund investment?,Investment Enquiry,https://investor.sebi.gov.in/kyc.html,Normal
+196,What is the difference between coupon rate and yield on a bond?,Investment Enquiry,https://investor.sebi.gov.in/understanding_bonds.html,Curated
+197,Can I sell a bond before its maturity date and what risks should I check?,Investment Enquiry,https://investor.sebi.gov.in/understanding_bonds.html,Normal
+198,How often should I review and rebalance my investment portfolio?,Investment Enquiry,https://investor.sebi.gov.in/investment-thingsbeforeinv.html,Normal
+199,mutual fund ka risk meter kaise samjhu?,Investment Enquiry,https://investor.sebi.gov.in/riskometer.html,Informal
+200,My mutual fund value went down this month. How can I understand what changed?,Investment Enquiry,https://investor.sebi.gov.in/hindi/understanding_mf.html,Edge case

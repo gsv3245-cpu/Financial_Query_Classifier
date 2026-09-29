@@ -16,7 +16,7 @@ ALLOWED_CATEGORIES = [
 ]
 
 MODEL_NAME = os.getenv("GROQ_MODEL", "openai/gpt-oss-20b")
-MOCK_MODE = os.getenv("MOCK_MODE", "true").lower() == "true"
+MOCK_MODE = os.getenv("MOCK_MODE", "false").lower() == "true"
 
 SYSTEM_PROMPT = """
 You are FSIS, a financial-services query classification system.
@@ -50,26 +50,34 @@ def _mock_classify(query: str) -> Dict[str, str]:
         "Account Enquiry": [
             "account statement", "bank account", "savings account", "current account",
             "balance", "account balance", "kyc", "passbook", "account details",
-            "open account", "close account", "update mobile", "statement"
+            "open account", "close account", "update mobile", "statement",
+            "bank statement", "account ka statement", "bank balance", "account balance",
+            "account details", "account mein", "statement download", "bank account ka"
         ],
         "Loan Enquiry": [
             "loan", "loan emi", "emi", "home loan", "personal loan", "education loan",
             "loan repayment", "repayment schedule", "loan eligibility", "borrow",
-            "borrowing", "interest rate", "tenure", "outstanding loan"
+            "borrowing", "interest rate", "tenure", "outstanding loan",
+            "loan kaise milega", "emi kitna hoga", "loan apply", "karz", "karz ka"
         ],
         "Credit-card Enquiry": [
             "credit card", "card limit", "credit limit", "credit-card", "card bill",
             "pay credit card", "credit card statement", "card payment", "reward points",
-            "card pin", "card activation", "minimum amount due", "due date"
+            "card pin", "card activation", "minimum amount due", "due date",
+            "credit score", "cibil", "score badhaye", "credit score kaise", "credit card limit",
+            "card ka limit", "credit card ka", "credit score kaise badhaye", "score kaise badhaye"
         ],
         "Transaction Enquiry": [
             "transaction", "upi", "neft", "rtgs", "imps", "transfer", "payment failed",
             "payment pending", "reversed transaction", "merchant", "debited", "failed payment",
-            "pending transaction", "settlement", "refund", "receiver", "sender", "transaction status"
+            "pending transaction", "settlement", "refund", "receiver", "sender", "transaction status",
+            "upi payment", "payment fail", "transaction fail", "payment pending", "money transfer",
+            "payment declined", "transaction declined", "failed transaction", "ghaṭit", "bharna"
         ],
         "Investment Enquiry": [
             "invest", "investment", "mutual fund", "sip", "shares", "stocks", "bond",
-            "etf", "portfolio", "demat", "nav", "risk", "return", "investing"
+            "etf", "portfolio", "demat", "nav", "risk", "return", "investing",
+            "mutual fund sip", "investment kaise karein", "sip kaise", "share market"
         ],
     }
 
@@ -84,6 +92,10 @@ def _mock_classify(query: str) -> Dict[str, str]:
             if len(words) == 1 and words[0] in terms:
                 weights[category] += 2
 
+    if "credit" in text and "score" in text:
+        weights["Credit-card Enquiry"] += 10
+    if "cibil" in text or "score" in text and "badh" in text:
+        weights["Credit-card Enquiry"] += 8
     if "credit" in text and "card" in text:
         weights["Credit-card Enquiry"] += 6
     if "loan" in text and "emi" in text:
@@ -124,22 +136,37 @@ def _parse_classification_payload(raw_content: str) -> Dict[str, str]:
     if not text:
         raise RuntimeError("Groq returned an empty response.")
 
-    try:
-        parsed = json.loads(text)
-    except json.JSONDecodeError:
-        match = re.search(r"\{.*\}", text, flags=re.DOTALL)
-        if not match:
-            raise RuntimeError("Groq returned a response that could not be parsed as JSON.") from None
+    cleaned = text
+    if cleaned.startswith("```"):
+        cleaned = re.sub(r"^```(?:json)?\s*|\s*```$", "", cleaned, flags=re.DOTALL).strip()
+
+    parsed = None
+    for candidate in [cleaned, text]:
         try:
-            parsed = json.loads(match.group(0))
-        except json.JSONDecodeError as exc:
-            raise RuntimeError("Groq returned a response that could not be parsed as JSON.") from exc
+            parsed = json.loads(candidate)
+            break
+        except json.JSONDecodeError:
+            pass
+
+        match = re.search(r"\{.*\}", candidate, flags=re.DOTALL)
+        if match:
+            try:
+                parsed = json.loads(match.group(0))
+                break
+            except json.JSONDecodeError:
+                pass
+
+    if parsed is None:
+        raise RuntimeError("Groq returned a response that could not be parsed as JSON.")
 
     if not isinstance(parsed, dict):
         raise RuntimeError("Groq returned an invalid classification payload.")
 
     category = parsed.get("category")
     reason = parsed.get("reason")
+    category = category.strip() if isinstance(category, str) else category
+    reason = reason.strip() if isinstance(reason, str) else reason
+
     if category not in ALLOWED_CATEGORIES or not isinstance(reason, str) or not reason.strip():
         raise RuntimeError("Groq returned an invalid classification payload.")
 
@@ -162,7 +189,8 @@ def classify_financial_query(query: str) -> Dict[str, str]:
     client = Groq(api_key=api_key)
     system_message = (
         SYSTEM_PROMPT
-        + "\nReturn only valid JSON with exactly two keys: 'category' and 'reason'."
+        + "\nReturn JSON only with exactly two keys: 'category' and 'reason'. "
+        + "The user may write in English or Hindi; classify the intent from the query content."
     )
 
     try:
@@ -174,34 +202,23 @@ def classify_financial_query(query: str) -> Dict[str, str]:
             ],
             temperature=0,
             max_completion_tokens=256,
-            response_format={
-                "type": "json_schema",
-                "json_schema": {
-                    "name": "financial_query_classification",
-                    "strict": True,
-                    "schema": {
-                        "type": "object",
-                        "properties": {
-                            "category": {"type": "string", "enum": ALLOWED_CATEGORIES},
-                            "reason": {"type": "string"},
-                        },
-                        "required": ["category", "reason"],
-                        "additionalProperties": False,
-                    },
-                },
-            },
         )
         content = response.choices[0].message.content
         return _parse_classification_payload(content)
     except Exception:
-        response = client.chat.completions.create(
-            model=MODEL_NAME,
-            messages=[
-                {"role": "system", "content": system_message},
-                {"role": "user", "content": query},
-            ],
-            temperature=0,
-            max_completion_tokens=256,
-        )
-        content = response.choices[0].message.content
-        return _parse_classification_payload(content)
+        try:
+            response = client.chat.completions.create(
+                model=MODEL_NAME,
+                messages=[
+                    {"role": "system", "content": system_message + " If you cannot return strict JSON, return a short JSON object anyway."},
+                    {"role": "user", "content": query},
+                ],
+                temperature=0.1,
+                max_completion_tokens=256,
+            )
+            content = response.choices[0].message.content
+            return _parse_classification_payload(content)
+        except Exception:
+            fallback = _mock_classify(query)
+            fallback["model_name"] = "Rule-based fallback (API recovery)"
+            return fallback
