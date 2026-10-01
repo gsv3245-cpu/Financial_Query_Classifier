@@ -1,0 +1,11 @@
+FSIS confusion matrix
+Run mode: Groq live with one rule-based API-recovery result (query ID 101)
+Rows are actual/expected categories; columns are predicted categories.
+
+Actual \ Predicted
+Actual | Acco | Loan | Cred | Tran | Inve
+Acco | 39 | 0 | 0 | 1 | 0
+Loan | 0 | 40 | 0 | 0 | 0
+Cred | 0 | 0 | 39 | 1 | 0
+Tran | 0 | 0 | 1 | 38 | 0
+Inve | 0 | 0 | 0 | 0 | 41

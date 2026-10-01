@@ -1,305 +1,232 @@
-﻿# Financial Services Intelligent System (FSIS)
+# Financial Services Intelligent System (FSIS)
 
-FSIS is a Flask-based financial query classification system that helps categorize customer service queries into one of five financial intent classes:
+FSIS is a Flask web application that classifies financial customer-service questions by their primary intent. It combines a browser dashboard, user accounts, query history, administrator views, feedback collection, SQLite storage, and a Groq-hosted language model with an offline keyword-based fallback.
 
-1. Account Enquiry
-2. Loan Enquiry
-3. Credit-card Enquiry
-4. Transaction Enquiry
-5. Investment Enquiry
+> FSIS classifies intent for routing and evaluation. It does not access bank accounts, process transactions, or provide financial advice.
 
-The system combines a web dashboard, user authentication, query storage, admin access, and Groq-powered classification logic. It also includes an offline fallback mode so the project can run and be tested without a live API key.
+## Features
 
----
+- Sign up, sign in, and sign out using Flask sessions.
+- Classify submitted queries into one of five financial intents.
+- Use Groq for live classification or deterministic keyword rules for offline demos and tests.
+- Store query text, category, reason, model name, and timestamp.
+- Review and filter query history; administrators can view all users' records.
+- Submit correctness feedback on a classification.
+- Evaluate predictions against a curated CSV and generate a confusion matrix and results image.
 
-## Purpose
+## Categories
 
-The project is designed to detect the main intent behind a financial customer query. For example:
+| Category | Typical intent |
+| --- | --- |
+| `Account Enquiry` | Bank account access, balances, statements, KYC, or account maintenance. |
+| `Loan Enquiry` | Loan eligibility, applications, EMIs, repayments, interest, or loan status. |
+| `Credit-card Enquiry` | Credit card limits, statements, bills, rewards, PINs, fees, or card operations. |
+| `Transaction Enquiry` | Specific payments, transfers, UPI/NEFT/RTGS/IMPS, pending/failed/reversed transactions. |
+| `Investment Enquiry` | Mutual funds, SIPs, shares, bonds, ETFs, portfolios, and investment products or risks. |
 
-- "Why was my UPI payment failed?"
-- "How can I view my bank account statement?"
-- "What is my credit card limit?"
-- "I want to apply for a personal loan"
-- "What is a mutual fund SIP?"
+## How It Works
 
-This helps route the query to the right category instead of replying with financial advice.
+1. The user submits query text from the dashboard.
+2. Flask checks the session and validates that the query is non-empty and no longer than 1,000 characters.
+3. `llm_service.py` classifies it using Groq or the local weighted keyword rules.
+4. Flask validates the category, stores the query and classification in SQLite, and returns the result to the browser.
+5. The user can review history and submit feedback. Feedback is stored but does not train or change the classifier.
 
----
+The Groq prompt requests a category and a short reason in JSON. If a model request or response parse fails, the service retries and may use the rule-based recovery classifier. Missing credentials do not automatically enable offline mode; set `MOCK_MODE=true` to run without Groq.
 
-## Core features
-
-- User signup and login
-- Admin account creation
-- Dashboard for submitting customer queries
-- Real-time classification using Groq
-- Offline keyword-based fallback for local testing
-- Query history tracking per user
-- Admin view for all saved queries
-- Feedback collection on classification correctness
-- Automated API testing
-
----
-
-## Technology stack
-
-- Python 3.10+
-- Flask
-- Flask-SQLAlchemy
-- SQLite (local development)
-- Groq API
-- Jinja templates
-- HTML, CSS, and JavaScript frontend
-- Pytest
-
----
+The fallback is hand-written weighted keyword/phrase logic, not a model trained on the CSV. It adds scores for matching phrases and extra rules for common conflicts, then chooses the highest-scoring category. If no rule matches, it defaults to `Account Enquiry`.
 
 ## Project structure
 
 ```text
 FSIS/
-├── app.py
-├── config.py
-├── llm_service.py
+├── app.py                         # Flask app, routes, database models, sessions
+├── config.py                      # Settings module (currently not imported)
+├── extensions.py                  # Reserved for future extensions
+├── llm_service.py                 # Groq integration and keyword fallback
 ├── requirements.txt
-├── README.md
-├── .env
-├── .gitignore
-├── data/
-│   ├── financial_queries.csv
-│   └── SOURCES.md
-├── evaluation/
-│   ├── confusion_matrix.py
-│   ├── evaluate_model.py
-│   └── results.csv
-├── instance/
+├── .env.example                   # Environment template; do not commit .env
+├── setup.bat / run.bat            # Windows helpers
+├── templates/                     # Jinja pages
 ├── static/
-│   ├── css/
-│   └── js/
-├── templates/
-│   ├── admin.html
-│   ├── base.html
-│   ├── dashboard.html
-│   ├── history.html
-│   ├── login.html
-│   └── signup.html
-├── tests/
-│   └── test_api.py
-└── .venv/
+│   ├── css/style.css
+│   └── js/app.js
+├── data/
+│   ├── financial_queries.csv      # 200 labeled examples
+│   └── SOURCES.md                 # Dataset sources and methodology
+├── evaluation/
+│   ├── evaluate_model.py
+│   ├── results.csv
+│   ├── confusion_matrix.py
+│   ├── confusion_matrix.txt
+│   ├── generate_results_image.py
+│   ├── results_visualization.png
+│   └── live_query_examples.csv
+├── tests/test_api.py
+├── PROJECT_CHECKLIST.md
+└── PROJECT_REPORT.md
 ```
 
----
+The local `.env`, `.venv/`, `instance/`, and cache files are machine-specific or generated and are intentionally not part of this tree.
 
-## Local setup
+## Quick Start
 
-### 1) Create a virtual environment
+Use Python 3.10 or newer. From the project directory, create a virtual environment, install dependencies, and copy the environment template once:
 
 ```powershell
-cd "C:\path\to\FSIS"
-python -m venv .venv
+py -m venv .venv
 .\.venv\Scripts\Activate.ps1
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
+Copy-Item .env.example .env
 ```
 
-If PowerShell blocks activation, use:
-
-```powershell
-.\.venv\Scripts\python.exe -m pip install -r requirements.txt
-```
-
-### 2) Install dependencies
-
-```powershell
-pip install -r requirements.txt
-```
-
-### 3) Configure environment variables
-
-Create a `.env` file in the project root:
-
-```env
-GROQ_API_KEY=your_groq_api_key_here
-SECRET_KEY=your_local_secret_key
-MOCK_MODE=false
-GROQ_MODEL=openai/gpt-oss-20b
-ADMIN_EMAIL=admin@fsis.local
-ADMIN_PASSWORD=Admin@1234
-```
-
-Important:
-
-- `.env` should not be committed to Git
-- `MOCK_MODE=true` turns on offline fallback mode
-- `MOCK_MODE=false` enables the live Groq model
-
----
-
-## Default local admin credentials
-
-For local development, the default admin user is:
-
-- Email: `admin@fsis.local`
-- Password: `Admin@1234`
-
-These credentials are intended only for local testing and should not be exposed publicly.
-
----
-
-## Run the application
-
-Start the app:
+Edit `.env` before starting the app. For an offline demo, set `MOCK_MODE=true`. Set a private `SECRET_KEY` and `ADMIN_PASSWORD`, and disable Flask debug mode when it is not needed. Start the application:
 
 ```powershell
 python app.py
 ```
 
-Then open:
+Open <http://127.0.0.1:5000> in a browser. The root route redirects to the dashboard when signed in and to login when signed out.
 
-```text
-http://127.0.0.1:5000
-```
+`setup.bat` is an alternative first-time setup helper. It creates/activates `.venv`, installs dependencies, and then force-copies `.env.example` over `.env`. Running it again can overwrite local settings or credentials. `run.bat` creates `.venv` if needed, reinstalls requirements, and starts the app; it does not create `.env`.
 
-The application includes:
+### Administrator Account
 
-- login page
-- signup page
-- dashboard for submitting queries
-- history page for previous queries
-- admin page for reviewing all records
+The app seeds an administrator from `ADMIN_EMAIL` and `ADMIN_PASSWORD`. Development defaults are `admin@fsis.local` and `Admin@1234`. The seed routine resets the seeded account's password on each app initialization to the configured value. Override these defaults before sharing or deploying the app.
 
----
+## Configuration
 
-## Mock mode vs live model mode
+`.env.example` lists the supported environment variables:
 
-### Mock mode
+| Variable | Purpose | Example/default |
+| --- | --- | --- |
+| `SECRET_KEY` | Signs Flask session cookies. | Replace the placeholder with a random private secret. |
+| `DATABASE_URL` | SQLAlchemy connection URL. | `sqlite:///fsis.db` (stored under Flask's `instance/` folder). |
+| `MOCK_MODE` | Selects offline rules or live Groq. | `true` for offline; `false` for live. |
+| `GROQ_API_KEY` | Credential for live Groq requests. | Keep private; never commit it. |
+| `GROQ_MODEL` | Groq model identifier. | `openai/gpt-oss-20b` |
+| `QUERY_MAX_LENGTH` | Maximum query length. | `1000` |
+| `FLASK_DEBUG` | Enables Flask debug mode. | Example is `true`; disable outside local development. |
+| `ADMIN_EMAIL` | Seed administrator email. | `admin@fsis.local` |
+| `ADMIN_PASSWORD` | Seed administrator password. | Set a private value. |
 
-When `MOCK_MODE=true`, the app uses a deterministic keyword-based classifier. This is useful for:
-
-- local testing
-- demo runs
-- verifying the app flow without costs or API dependency
-- continuous integration checks
-
-This is not the production inference engine.
-
-### Live Groq mode
-
-When `MOCK_MODE=false`, the app calls the Groq API using the configured model. The default model is:
-
-```text
-openai/gpt-oss-20b
-```
-
-The app expects a structured JSON response with:
-
-- `category`
-- `reason`
-
----
-
-## Testing
-
-Run the project tests:
+Generate a local session secret with:
 
 ```powershell
-pytest -q
+python -c "import secrets; print(secrets.token_hex(32))"
 ```
 
-The tests verify:
+Set the output as `SECRET_KEY` in `.env`. Explicitly set `MOCK_MODE`; `llm_service.py` defaults to live mode if the variable is absent, while `.env.example` explicitly selects offline mode. `config.py` currently exists but is not imported by the app.
 
-- health endpoint
-- signup/login flow
-- dashboard rendering
-- classification behavior
-- authentication errors
-- admin permissions
-- invalid response handling
+## Pages And API
 
----
+  ### Browser Pages
 
-## API endpoints
+  | Path | Description |
+  | --- | --- |
+  | `/login` | Sign in. |
+  | `/signup` | Create an account. |
+  | `/dashboard` | Submit queries, view classifications, and leave feedback. |
+  | `/history` | Search and filter personal query history; admins see all records. |
+  | `/admin` | Admin-only user/query counts and query table. |
 
-### Authentication and health
+  ### JSON Endpoints
 
-- `GET /api/health`
-- `POST /api/signup`
-- `POST /api/login`
-- `POST /api/logout`
+  | Method and path | Access | Purpose |
+  | --- | --- | --- |
+  | `GET /api/health` | Public | Simple service liveness response. |
+  | `POST /api/signup` | Public | Create an account; accepts JSON or form data. |
+  | `POST /api/login` | Public | Authenticate and create a session. |
+  | `POST /api/logout` | Public | Clear the session. |
+  | `POST /api/classify` | Signed in | Classify and persist a query. |
+  | `GET /api/history` | Signed in | Return personal history or all history for an admin. Supports `category` and `search` filters. |
+  | `POST /api/feedback` | Signed in | Create or update feedback for an owned query; admins may submit feedback for any query. |
 
-### Query operations
+  Example classification request:
 
-- `POST /api/classify`
-- `GET /api/history`
-- `POST /api/feedback`
+  ```json
+  {
+    "query": "Why was my UPI payment debited but the recipient did not receive it?"
+  }
+  ```
 
-Example request:
+  Successful `/api/classify` response shape:
 
-```http
-POST /api/classify
-Content-Type: application/json
+  ```json
+  {
+    "success": true,
+    "query_id": 12,
+    "category": "Transaction Enquiry",
+    "reason": "The user is inquiring about a specific UPI payment that was debited from their account but the recipient did not receive it.",
+    "model": "openai/gpt-oss-20b"
+  }
+  ```
 
-{
-  "query": "Why was my UPI transaction declined?"
-}
-```
+  The API response key is `model`; the database field and internal classifier result use `model_name`.
 
-Example response:
+  ## Database
 
-```json
-{
-  "success": true,
-  "category": "Transaction Enquiry",
-  "reason": "The query is about a failed or declined financial transaction.",
-  "query_id": 12,
-  "model_name": "openai/gpt-oss-20b"
-}
-```
+  Flask-SQLAlchemy manages four SQLite tables:
 
----
+  - `users`: profile, unique email, password hash, admin flag, and creation time.
+  - `queries`: owner, original query text, and creation time.
+  - `classifications`: one category/reason/model result per query.
+  - `feedback`: one correctness flag and optional note per query.
 
-## Database
+  The local database is normally created under `instance/fsis.db`. `db.create_all()` initializes missing tables; this project does not include a full migration framework. SQLite is intended for local and academic use; use a production database and migrations before deployment.
 
-The project uses SQLite for the local development database. It creates tables for:
+  ## Data And Evaluation
 
-- `users`
-- `queries`
-- `classifications`
-- `feedback`
+  `data/financial_queries.csv` contains 200 curated and manually labeled examples across the five categories. The examples were researched from public financial information, paraphrased/curated, manually labeled, or written as edge cases. They are not raw customer records or a verbatim web scrape. See [data/SOURCES.md](data/SOURCES.md) for methodology and source URLs.
 
-SQLite is suitable for academic and local testing, but a managed database is recommended for production hosting.
+Dataset composition: Account Enquiry 40, Loan Enquiry 40, Credit-card Enquiry 40, Transaction Enquiry 39, and Investment Enquiry 41. Query styles are Normal 125, Curated 32, Edge case 29, and Informal 14.
 
----
+  The latest saved live evaluation used `MOCK_MODE=false` and `openai/gpt-oss-20b`:
 
-## Evaluation dataset
+  - **197 / 200 correct (98.50%)**
+  - Account Enquiry: 39/40 (97.50%)
+  - Loan Enquiry: 40/40 (100.00%)
+  - Credit-card Enquiry: 39/40 (97.50%)
+  - Transaction Enquiry: 38/39 (97.44%)
+  - Investment Enquiry: 41/41 (100.00%)
+  - Query ID 101 used the rule-based recovery fallback and was still correct; there were no API error rows.
 
-The project includes a curated financial query dataset in:
+  These are results from one run on this curated assignment dataset, not a guarantee of future or production accuracy. The three mistakes were ID 44 (credit-card payment settlement), ID 70 (stopping payment on an issued cheque), and ID 140 (disputing an unauthorized card cash withdrawal). The detailed predictions and reasons are in [evaluation/results.csv](evaluation/results.csv). Five real live model examples are saved in [evaluation/live_query_examples.csv](evaluation/live_query_examples.csv).
 
-- `data/financial_queries.csv`
+  ### Evaluation Image
 
-Evaluation scripts are in:
+  The generated image summarizes overall accuracy, the confusion matrix, per-class accuracy, query-type scores, and misclassified query IDs:
 
-- `evaluation/evaluate_model.py`
-- `evaluation/confusion_matrix.py`
+  ![FSIS evaluation results visualization](evaluation/results_visualization.png)
 
-These scripts generate classification result files and confusion matrix output for model analysis.
+  Regenerate the evaluation data and visual artifacts with:
 
----
+  ```powershell
+  python evaluation/evaluate_model.py
+  python evaluation/confusion_matrix.py
+  python evaluation/generate_results_image.py
+  ```
 
-## Academic and reporting note
+  `evaluate_model.py` sends all dataset rows through the Flask API and overwrites `evaluation/results.csv`. In mock mode the scores measure the local rules; in live mode a valid Groq API key is required. `confusion_matrix.py` prints the matrix to the terminal; the committed text snapshot is `evaluation/confusion_matrix.txt`. `generate_results_image.py` reads the results CSV and writes `evaluation/results_visualization.png` using Pillow. Run all three after a new evaluation to refresh all outputs.
 
-This project is intended to classify financial customer query intent. It is not a financial advice engine and should not be represented as one.
+  ## Tests
 
-In reports or documentation, describe the dataset as curated, paraphrased, or sourced from public financial information where applicable, rather than claiming it is raw customer data from live banking systems.
+  Run the API and behavior tests with:
 
----
+  ```powershell
+  python -m pytest -q
+  ```
 
-## Security note
+  The pytest suite uses Flask's test client, temporary SQLite databases, and `MOCK_MODE=true`. It covers authentication, admin access, classification, history filters, feedback, invalid categories, and response parsing. It does not send live Groq requests.
 
-- Keep `.env` private
-- Never commit API keys or secrets
-- Use a strong secret key in non-local deployments
-- Do not expose admin credentials publicly
+  For a more detailed explanation of modules, data relationships, algorithms, verified evaluation, and likely viva questions, see [PROJECT_REPORT.md](PROJECT_REPORT.md).
 
----
+  ## Security And Limitations
 
-## License
-
-This project is provided for academic and educational use in accordance with the repository license.
+  - Never commit `.env`, Groq API keys, local SQLite records, or real customer information. `.gitignore` excludes `.env`, `.env.local`, `instance/`, virtual environments, and caches.
+  - Replace the development session secret and administrator credentials; disable Flask debug mode before deployment.
+  - `setup.bat` overwrites `.env` when run, so use it only for initial setup or when intentionally resetting configuration.
+  - The application has no explicit CSRF tokens, rate limiting, account verification, or password reset flow.
+  - The keyword fallback is heuristic and defaults unmatched text to Account Enquiry. Live LLM results may also be wrong.
+  - Do not use FSIS for financial advice, account access, or transaction processing.

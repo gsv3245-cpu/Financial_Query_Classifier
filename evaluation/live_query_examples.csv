@@ -1,0 +1,6 @@
+run_mode,model_name,query,category,reason
+live Groq,openai/gpt-oss-20b,Why was my UPI payment debited but the recipient did not receive it?,Transaction Enquiry,The user is inquiring about a specific UPI payment that was debited from their account but the recipient did not receive it.
+live Groq,openai/gpt-oss-20b,How can I check whether I am eligible for a personal loan?,Loan Enquiry,User is asking about checking eligibility for a personal loan.
+live Groq,openai/gpt-oss-20b,What is the difference between a direct and regular mutual fund?,Investment Enquiry,"The user is asking about the difference between direct and regular mutual funds, which pertains to investment products."
+live Groq,openai/gpt-oss-20b,How do I report an unauthorized credit card transaction?,Credit-card Enquiry,User is asking how to report an unauthorized credit card transaction.
+live Groq,openai/gpt-oss-20b,How can I update the mobile number linked to my bank account?,Account Enquiry,"The user is asking how to update the mobile number linked to their bank account, which is an account maintenance request."
