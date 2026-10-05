@@ -48,9 +48,10 @@ FSIS/
 ├── .env.example                   # Environment template; do not commit .env
 ├── setup.bat / run.bat            # Windows helpers
 ├── templates/                     # Jinja pages
-├── static/
+├── public/static/                 # Vercel CDN assets; Flask local static URL is /static
 │   ├── css/style.css
 │   └── js/app.js
+├── vercel.json                    # Flask function/template configuration
 ├── data/
 │   ├── financial_queries.csv      # 200 labeled examples
 │   └── SOURCES.md                 # Dataset sources and methodology
@@ -118,6 +119,38 @@ python -c "import secrets; print(secrets.token_hex(32))"
 ```
 
 Set the output as `SECRET_KEY` in `.env`. Explicitly set `MOCK_MODE`; `llm_service.py` defaults to live mode if the variable is absent, while `.env.example` explicitly selects offline mode. `config.py` currently exists but is not imported by the app.
+
+## Deploying to Vercel
+
+Vercel detects the Flask application from the root `app.py`. The included `vercel.json` makes sure Jinja templates are packaged with the function. Frontend files are in `public/static/`, which Vercel serves at the existing `/static/...` URLs.
+
+**Use persistent PostgreSQL.** Vercel functions do not provide durable local SQLite storage. Provision Neon PostgreSQL through the Vercel Marketplace/Storage integration, then configure its connection URL as `DATABASE_URL` in the Vercel project settings for Preview and Production. Do not put the database URL in Git or paste it into chat. The app converts standard `postgresql://` or `postgres://` URLs to the installed psycopg driver format and fails fast on Vercel if SQLite is selected.
+**Use persistent PostgreSQL.** Vercel functions do not provide durable local SQLite storage. Connect the Neon resource to the project with the `NEON_` prefix for Preview and Production; the integration will provide `NEON_DATABASE_URL`. The app prefers this variable over `DATABASE_URL`, leaving any existing database setting untouched. Do not put database URLs in Git or paste them into chat. The app converts standard PostgreSQL URLs to the psycopg driver format and fails fast on Vercel if SQLite is selected.
+Vercel startup also requires a `SECRET_KEY` of at least 32 characters, a non-default `ADMIN_EMAIL`, and an `ADMIN_PASSWORD` of at least 12 characters. Set `MOCK_MODE=false` and `FLASK_DEBUG=false` in the Vercel project settings for live classification without debug mode.
+
+Configure these Vercel environment variables:
+
+| Variable | Value |
+| --- | --- |
+| `NEON_DATABASE_URL` | Neon PostgreSQL connection URL added by the Vercel integration using the `NEON_` prefix. |
+| `SECRET_KEY` | A newly generated random secret. |
+| `GROQ_API_KEY` | Your Groq API key. |
+| `MOCK_MODE` | `false` for live Groq classification. |
+| `GROQ_MODEL` | `openai/gpt-oss-20b` (or your selected Groq model). |
+| `ADMIN_EMAIL` | The administrator email to seed. |
+| `ADMIN_PASSWORD` | A strong, unique administrator password. |
+| `FLASK_DEBUG` | `false`. |
+
+After linking the GitHub repository and setting its environment variables, deploy from the project directory:
+
+```powershell
+npx vercel login
+npx vercel link
+npx vercel
+npx vercel --prod
+```
+
+The first `npx vercel` creates a Preview deployment; `npx vercel --prod` creates the Production deployment. Authentication and database credentials belong in Vercel's secure account/project settings, not in source control.
 
 ## Pages And API
 

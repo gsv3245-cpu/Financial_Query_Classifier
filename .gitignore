@@ -9,3 +9,8 @@ instance/
 *.db
 *.db-journal
 .DS_Store
+
+.vercel
+.env*
+.agents/
+skills-lock.json

@@ -86,10 +86,26 @@ def seed_admin_user():
 
 
 def create_app(test_config=None):
-    app = Flask(__name__)
+    database_url = os.getenv("NEON_DATABASE_URL") or os.getenv("DATABASE_URL", "sqlite:///fsis.db")
+    if database_url.startswith(("postgres://", "postgresql://")):
+        database_url = "postgresql+psycopg://" + database_url.split("://", 1)[1]
+    if os.getenv("VERCEL") == "1":
+        if not database_url.startswith("postgresql+psycopg://"):
+            raise RuntimeError("Vercel deployments require a persistent PostgreSQL DATABASE_URL.")
+        secret_key = os.getenv("SECRET_KEY", "")
+        if len(secret_key) < 32 or secret_key == "change-this-secret-key":
+            raise RuntimeError("Set a random SECRET_KEY of at least 32 characters in Vercel.")
+        admin_email = os.getenv("ADMIN_EMAIL", "").lower()
+        if not admin_email or admin_email == "admin@fsis.local":
+            raise RuntimeError("Set a non-default ADMIN_EMAIL in Vercel.")
+        admin_password = os.getenv("ADMIN_PASSWORD", "")
+        if len(admin_password) < 12 or admin_password == "Admin@1234":
+            raise RuntimeError("Set a unique ADMIN_PASSWORD of at least 12 characters in Vercel.")
+
+    app = Flask(__name__, static_folder="public/static", static_url_path="/static")
     app.config.update(
         SECRET_KEY=os.getenv("SECRET_KEY", "change-this-secret-key"),
-        SQLALCHEMY_DATABASE_URI=os.getenv("DATABASE_URL", "sqlite:///fsis.db"),
+        SQLALCHEMY_DATABASE_URI=database_url,
         SQLALCHEMY_TRACK_MODIFICATIONS=False,
         MAX_CONTENT_LENGTH=64 * 1024,
         QUERY_MAX_LENGTH=int(os.getenv("QUERY_MAX_LENGTH", "1000")),

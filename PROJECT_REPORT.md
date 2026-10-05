@@ -256,7 +256,7 @@ Important environment variables:
 | Variable | Purpose | Current default/source note |
 | --- | --- | --- |
 | `SECRET_KEY` | Signs Flask session cookies. | Active app fallback is `change-this-secret-key`; use a random private value outside local testing. |
-| `DATABASE_URL` | SQLAlchemy connection string. | `sqlite:///fsis.db`. |
+| `DATABASE_URL` | SQLAlchemy connection string. | `sqlite:///fsis.db`; on Vercel, `NEON_DATABASE_URL` takes precedence. |
 | `MOCK_MODE` | Chooses keyword mode versus Groq mode. | `llm_service.py` defaults to `false`; `.env.example` sets `true`; README's manual `.env` example sets `false`; unused `config.py` defaults to `true`. A local `.env` file exists but was not read, so this audit does not assert which mode that file currently selects. |
 | `GROQ_API_KEY` | API credential for live classification. | Required when `MOCK_MODE=false`; keep it private. |
 | `GROQ_MODEL` | Groq model identifier. | `openai/gpt-oss-20b`. |
